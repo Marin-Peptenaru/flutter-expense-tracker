@@ -12,9 +12,6 @@ class Expense {
       @required this.amount,
       @required this.date});
 
-
-
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
