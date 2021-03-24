@@ -5,26 +5,35 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:expense_tracker/domain/expense.dart';
+import 'package:expense_tracker/domain/validation/expense_validator.dart';
+import 'package:expense_tracker/domain/validation/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:expense_tracker/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  group('Test Expense domain entity', (){
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    ExpenseValidator _validator = ExpenseValidator();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    test('ExpenseValidator, '
+        'create Expense object with valid data, object passes validation', (){
+      Expense expense = Expense(id: 1, title: 'Shopping',
+          amount: 10, date: DateTime(2001, 10, 10));
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      _validator.validate(expense);
+    });
+
+    test('ExpenseValidator, create Expense object with invalid data, ValidationException thrown', (){
+      try{
+        Expense expense = Expense(id: 1, title: 'Shopping',
+            amount: -50, date: DateTime(2023, 12, 12));
+        _validator.validate(expense);
+      }on Exception catch (e){
+        assert(e is ValidationException);
+      }
+    });
+
   });
 }
