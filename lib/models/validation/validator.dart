@@ -19,7 +19,6 @@ abstract class Validator<T>{
 
   void validate(T entity);
 
-
 }
 
 class ValidationException implements Exception{

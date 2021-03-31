@@ -5,14 +5,14 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:expense_tracker/domain/expense.dart';
-import 'package:expense_tracker/domain/validation/expense_validator.dart';
-import 'package:expense_tracker/domain/validation/validator.dart';
-import 'package:flutter/material.dart';
+
+import '../lib/models/expense.dart';
+import '../lib/models/validation/expense_validator.dart';
+import '../lib/models/validation/validator.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:expense_tracker/main.dart';
 
 void main() {
+
   group('Test Expense domain entity', (){
 
     ExpenseValidator _validator = ExpenseValidator();
@@ -21,7 +21,6 @@ void main() {
         'create Expense object with valid data, object passes validation', (){
       Expense expense = Expense(id: 1, title: 'Shopping',
           amount: 10, date: DateTime(2001, 10, 10));
-
       _validator.validate(expense);
     });
 
