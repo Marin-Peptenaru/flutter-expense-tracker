@@ -1,7 +1,9 @@
-import 'package:expense_tracker/domain/expense.dart';
-import 'package:expense_tracker/domain/validation/validator.dart';
+import '../expense.dart';
+import './validator.dart';
 
 class ExpenseValidator extends Validator<Expense>{
+
+  ExpenseValidator();
 
   @override
   void validate(Expense expense) {
@@ -15,7 +17,9 @@ class ExpenseValidator extends Validator<Expense>{
       amount > 0? "" : "Spent amount must be strictly positive";
 
   String _validateDate(DateTime date) =>
-      date.isBefore(DateTime.now())? "" : "Purchase date must be valid.";
+      date.isBefore(DateTime.now()) || date.isAtSameMomentAs(DateTime.now())
+          ? ""
+          : "Purchase date must be valid.";
 
 
 
