@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:optional/optional.dart';
+
 import '../models/base_entity.dart';
 import '../models/validation/validator.dart';
 
@@ -11,26 +13,25 @@ class Repository<ID,T extends BaseEntity<ID>> {
   Repository({required validator}):
         _entityValidator = validator;
 
-  T save(entity) {
+  Optional<T> save(entity) {
     _entityValidator.validate(entity);
-    return _entities.putIfAbsent(entity.id, () => entity);
+    return Optional.of(_entities.putIfAbsent(entity.id, () => entity));
   }
 
-  T? update(updatedEntity) {
+  Optional<T> update(updatedEntity) {
     _entityValidator.validate(updatedEntity);
     return _entities.containsKey(updatedEntity.id)
-        ? _entities.update(updatedEntity.id, (oldEntity) => updatedEntity)
-        : null;
+        ? Optional.of(_entities.update(updatedEntity.id, (oldEntity) => updatedEntity))
+        : Optional.empty();
   }
 
-  T? delete(entityID) => _entities.remove(entityID);
+  Optional<T> delete(entityID) => Optional.ofNullable(_entities.remove(entityID));
 
 
-  T? findByID(entityID) => _entities[entityID];
+  Optional<T> findByID(entityID) => Optional.ofNullable(_entities[entityID]);
 
   List<T> getAll() {
     return _entities.values.toList();
-
   }
 
 
