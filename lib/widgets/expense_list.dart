@@ -1,34 +1,34 @@
-import 'package:expense_tracker/services/expense_manager.dart';
 import 'package:provider/provider.dart';
-
 import 'package:flutter/material.dart';
 
 import 'expense_card.dart';
+import '../models/expense.dart';
 
 class ExpenseList extends StatelessWidget {
+  final List<Expense> _expenses;
+
+  ExpenseList(List<Expense> expenses) : _expenses = expenses;
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<ExpenseManager>(builder: (context, expenseManager, _) {
-      var expenses = expenseManager.allExpenses;
-      return expenses.isEmpty
-          ? Column(
+    return _expenses.isEmpty
+        ? LayoutBuilder(
+            builder: (context, constraints) => Column(
               children: [
                 Text('No expenses yet.'),
-                SizedBox(height: 20,),
                 Container(
-                    height: 300,
-                    child: Image.asset('assets/images/waiting.png',
-                        fit: BoxFit.cover)),
+                    height: constraints.maxHeight * 0.6,
+                    margin: EdgeInsets.symmetric(
+                        vertical: constraints.maxHeight * 0.1),
+                    child: Image.asset('assets/images/waiting.png')),
               ],
-            )
-          : Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return ExpenseCard(expense: expenses[index]);
-                },
-                itemCount: expenseManager.allExpenses.length,
-              ),
-            );
-    });
+            ),
+          )
+        : ListView.builder(
+            itemBuilder: (context, index) {
+              return ExpenseCard(expense: _expenses[index]);
+            },
+            itemCount: _expenses.length,
+          );
   }
 }
