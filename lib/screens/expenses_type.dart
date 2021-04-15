@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'expense_bar.dart';
-import 'expense_list.dart';
+import '../widgets/expense_bar.dart';
+import '../widgets/expense_list.dart';
 
 import '../models/expense.dart';
 import '../services/expense_manager.dart';

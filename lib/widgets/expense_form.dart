@@ -4,7 +4,6 @@ import 'package:expense_tracker/services/expense_manager.dart';
 import '../models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 //TODO: solve overflow issue caused by soft keyboard
 class ExpenseForm extends StatefulWidget {
@@ -50,7 +49,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
       lastDate: DateTime.now(),
     ).then((selectedDate) {
       setState(() {
-        _pickedDate = selectedDate == null ? _pickedDate : selectedDate;
+        _pickedDate = selectedDate ?? _pickedDate ;
       });
     });
   }

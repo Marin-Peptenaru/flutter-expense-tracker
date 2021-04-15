@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/route_names.dart';
-import './expense_chart.dart';
-import './expense_list.dart';
-import './expense_form.dart';
-import './expense_bar.dart';
+import '../widgets/expense_chart.dart';
+import '../widgets/expense_list.dart';
+import '../widgets/expense_form.dart';
+import '../widgets/expense_bar.dart';
 
 class HomePageScreen extends StatelessWidget with PageRouter{
   final String _title;
